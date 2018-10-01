@@ -1,0 +1,17 @@
+﻿@model Meal
+
+<div class="well">
+    <a asp-controller="Meal" asp-action="Detail" asp-route-id="@Model.Id">
+        <h4>@(Model.Title ?? "No title available")</h4>
+    </a>
+    <p><i class="far fa-calendar-alt"></i> @(Model.Date.ToString("dd-MM-yyyy HH:mm") ?? "No date available")</p>
+    <div>
+        <p><i class="fas fa-user"></i> @(Model?.Guests?.Count)/@Model.MaxGuests</p>
+        <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#cook-info-@(Model.Id)-@(Model.Cook.Id)" aria-expanded="false"><i class="fas fa-user"></i> @(Model.Cook?.FullName() ?? "Cook unkown")</button>
+        <div class="collapse" id="cook-info-@(Model.Id)-@(Model.Cook.Id)">
+            <span style="display: none">@(ViewBag.PreventStackOverflow = false)</span>
+            <br />
+            <partial name="_StudentOverviewPartial" for="Cook" />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model MealButtonViewModel
+
+@switch (Model.Status)
+{
+    case Status.Default:
+        <div class="col-md-12">
+            <form asp-controller="Meal" asp-action="Join" method="post">
+                <input type="hidden" name="MealId" value="@Model.Meal.Id" />
+                <input type="submit" class="btn btn-primary btn-block" value="Join" />
+            </form>
+        </div>
+        break;
+    case Status.NoGuests:
+        <div class="col-md-6">
+            <a asp-controller="Meal" asp-action="Edit" asp-route-id="@Model.Meal.Id" class="btn btn-primary btn-block" style="margin-bottom: 5px;">Edit</a>
+        </div>
+        <div class="col-md-6">
+            <form asp-controller="Meal" asp-action="Delete" method="post">
+                <input type="hidden" name="MealId" value="@Model.Meal.Id" />
+                <input type="submit" class="btn btn-danger btn-block" value="Delete" />
+            </form>
+        </div>
+        break;
+    case Status.IsGuest:
+        <div class="col-md-12">
+            <form asp-controller="Meal" asp-action="Leave" method="post">
+                <input type="hidden" name="MealId" value="@Model.Meal.Id" />
+                <input type="submit" class="btn btn-danger btn-block" value="Leave" />
+            </form>
+        </div>
+        break;
+    case Status.Full:
+        <div class="col-md-12">
+            <input type="submit" class="btn btn-primary btn-block disabled" value="Full" />
+        </div>
+        break;
+    default:
+    case Status.LoginError:
+    case Status.IsCook:
+        break;
+}

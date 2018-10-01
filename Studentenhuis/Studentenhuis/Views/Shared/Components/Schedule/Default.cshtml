@@ -1,0 +1,32 @@
+﻿@model ScheduleViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Student != null)
+        {
+            <h2>Profile</h2>
+            <p>You are currently logged in as: <b>@Model.Student.FullName()</b></p>
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-danger btn-block">Logout</a>
+        }
+        else
+        {
+            <h2>Currently not logged in</h2>
+            <p>You need to have a account to join or create a new meal.</p>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-block">Login</a>
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-block">Register</a>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Today:</h2>
+        @if (Model?.Meal == null)
+        {
+            <p>No meal for today.</p>
+        }
+        else
+        {
+            <partial name="_ScheduleItemPartial" for="Meal" />
+        }
+    </div>
+</div>

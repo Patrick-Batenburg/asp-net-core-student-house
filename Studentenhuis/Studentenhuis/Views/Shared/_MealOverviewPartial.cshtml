@@ -1,0 +1,11 @@
+﻿@model Meal
+
+<div class="well">
+    <a asp-controller="Meal" asp-action="Detail" asp-route-id="@Model.Id">
+        <h4>@(Model.Title ?? "No title available")</h4>
+    </a>
+    <p><i class="far fa-calendar-alt"></i> @(Model.Date.ToString("dd-MM-yyyy HH:mm") ?? "No date available")</p>
+    <div>
+        <p><i class="fas fa-user"></i> @(Model?.Guests?.Count) / @Model.MaxGuests</p>
+    </div>
+</div>

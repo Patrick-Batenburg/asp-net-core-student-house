@@ -1,0 +1,46 @@
+﻿@model Student
+
+<div class="well">
+    <h4>@(Model?.FullName() ?? "No name available")</h4>
+    <p><i class="fas fa-envelope"></i> @(Model?.Email ?? "No email available")</p>
+    <p><i class="fas fa-phone"></i> 06-@(Model?.PhoneNumber ?? "No phone number available")</p>
+    @if (ViewBag?.PreventStackOverflow ?? true)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#meal-toggle-id-@Model?.Id" aria-expanded="false">
+                    <i class="fas fa-utensils"></i> Meals joined
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#cook-toggle-id-@Model?.Id" aria-expanded="false">
+                    <i class="fas fa-utensils"></i> Meals served
+                </button>
+            </div>
+        </div>
+        <div class="collapse" id="meal-toggle-id-@Model?.Id">
+            <h4>Meals joined:</h4>
+            @foreach (Guest guest in Model.GuestAtMeals)
+            {
+                <partial name="_MealOverviewPartial" for="@guest.Meal" />
+            }
+
+            @if (Model.GuestAtMeals.Count() == 0)
+            {
+                <p>@Model.FirstName has not joined any meals yet.</p>
+            }
+        </div>
+        <div class="collapse" id="cook-toggle-id-@Model?.Id">
+            <h4>Meals served:</h4>
+            @foreach (Meal meal in Model.CookAtMeals)
+            {
+                <partial name="_MealOverviewPartial" for="@meal" />
+            }
+
+            @if (Model.CookAtMeals.Count() == 0)
+            {
+                <p>@Model.FirstName has not cooked anything yet.</p>
+            }
+        </div>
+    }
+</div>

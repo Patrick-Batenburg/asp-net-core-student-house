@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Student>
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="row">
+    <h1>@ViewData["Title"]</h1>
+</div>
+<div class="row">
+    @foreach (Student student in Model)
+    {
+        <partial name="_StudentOverviewPartial" for="@student" />
+    }
+</div>

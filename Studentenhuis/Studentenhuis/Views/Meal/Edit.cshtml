@@ -1,0 +1,66 @@
+﻿@model Meal
+@{
+    ViewData["Title"] = "Edit meal";
+}
+<div class="row">
+    <h1>@ViewData["Title"]: @Model.Title</h1>
+</div>
+<div class="row">
+    <div class="well">
+        @if (Model != null)
+        {
+            @if (Model.Guests.Count == 0)
+            {
+                <form asp-controller="Meal" asp-action="Edit" method="post">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="Date" value="@Model.Date" />
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="Title"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="Date"></label>
+                            <p class="form-control" disabled="disabled">@Model.Date.ToString("dd-MM-yyyy HH:mm")</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="MaxGuests"></label>
+                            <input asp-for="MaxGuests" min="1" class="form-control" />
+                            <span asp-validation-for="MaxGuests" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="Price"></label>
+                            <input asp-for="Price" min="0" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <p>You cannot edit a meal with guests.</p>
+            }
+        }
+        else
+        {
+            <p>This meal has been deleted.</p>
+        }
+    </div>
+</div>

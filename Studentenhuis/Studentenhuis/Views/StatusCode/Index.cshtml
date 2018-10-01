@@ -1,0 +1,41 @@
+﻿@model int
+@{
+    var statusCode = Model;
+    var statusMessage = "";
+    switch (statusCode)
+    {
+        case 400:
+            statusMessage = "Bad request: The request cannot be fulfilled due to bad syntax";
+            break;
+        case 403:
+            statusMessage = "Forbidden";
+            break;
+        case 404:
+            statusMessage = "Page not found";
+            break;
+        case 408:
+            statusMessage = "The server timed out waiting for the request";
+            break;
+        case 500:
+            statusMessage = "Internal Server Error - server was unable to finish processing the request";
+            break;
+        default:
+            statusMessage = "That’s odd... Something we didn't expect happened";
+            break;
+    }
+}
+<br />
+<div class="jumbotron">
+    <h1>Error @Model</h1>
+    <h3>@statusMessage</h3>
+</div>
+<div class="col-md-12">
+    <div class="row">
+        <div class="error-actions">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">
+                <i class="fas fa-home"></i>
+                Take Me Home
+            </a>
+        </div>
+    </div>
+</div>
